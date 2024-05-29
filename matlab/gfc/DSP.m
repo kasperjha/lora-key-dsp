@@ -6,6 +6,18 @@ raw_signal = RSSIolivieradriving.GWRSSI;
 subplot(4,1,1)
 plot(raw_samples)
 title("RSSI samples");
+%{ 
+    The linear interpolation step of the Lora-Key algorithm. 
+    ASSUMPTION: 4 times repeated linear interpolation is the same as 
+    interpolating 4 values between each sample point. 
+%}
+function signal = interpolation(signal, timesInterpolate)
+    numSamples = size(signal);
+    xSamples = 1:numSamples;
+    xInterpolateStep = 1/(timesInterpolate+1);
+    xInterpolated = 1:xInterpolateStep:numSamples;
+    signal = interp1(xSamples, signal, xInterpolated);
+end
 
 % TODO: apply CFG outlier rejection step
 
