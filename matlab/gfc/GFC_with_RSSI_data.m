@@ -1,6 +1,6 @@
 % load in datasets
-load('RSSI_oliviera_walking.mat')
-load('RSSI_oliviera_driving.mat')
+load('datasets/RSSI_oliviera_walking.mat')
+load('datasets/RSSI_oliviera_driving.mat')
 
 % loading oliviera RSSI dataset samples
 Xraw = table2array(RSSIolivierawalking);
