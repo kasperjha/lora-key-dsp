@@ -1,18 +1,14 @@
+%{ 
+    The linear interpolation step of the Lora-Key algorithm. 
+    ASSUMPTION: 4 times repeated linear interpolation is the same as 
+    interpolating 4 values between each sample point. 
+%}
+function interpolated = linear_interpolation(signal, timesInterpolate)
 
-% TODO: use result of pipeline instead of raw RSSI values
-load("datasets/RSSI_oliviera_driving.mat");
+    numSamples = size(signal);
+    xSamples = 1:numSamples;
+    xInterpolateStep = 1/(timesInterpolate+1);
+    xInterpolated = 1:xInterpolateStep:numSamples;
+    interpolated = interp1(xSamples, signal, xInterpolated);
 
-% assumption: interpolating 4 values is the same as 4 times repeated
-% interpolation
-
-timesInterpolate = 4;
-numSamples = 100;
-
-xSamples = 1:numSamples;
-xInterpolateStep = 1/(timesInterpolate+1);
-xInterpolated = 1:xInterpolateStep:numSamples;
-
-samples = RSSIolivieradriving.GWRSSI(1:numSamples);
-interpolated = interp1(xSamples, samples, xInterpolated);
-
-plot(xSamples,samples,'o',xInterpolated ,interpolated,':.');
+end
